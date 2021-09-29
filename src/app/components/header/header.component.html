@@ -16,9 +16,11 @@
   <ng-container *ngIf="isLoading">
     <mat-progress-bar class="progress-bar" mode="indeterminate"></mat-progress-bar>
   </ng-container>
-  <div class="main-results" *ngFor="let repository of repositories$ | async">
-    <mat-card class="main-result-card">
-      <app-results [repository]="repository"></app-results>
-    </mat-card>
+  <div class="main-results" *ngFor="let repository of repositories$ | async" >
+    <a mat-flat-button class="main-result" routerLink='repository' [queryParams]="{ name: repository.name }" routerLinkActive="active">
+      <mat-card class="main-result-card">
+        <app-results [repository]="repository"></app-results>
+      </mat-card>
+    </a>
   </div>
 </div>

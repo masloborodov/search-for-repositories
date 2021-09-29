@@ -1,0 +1,17 @@
+<ng-container *ngIf="repository !== null" >
+  <div class="repository-main" >
+    <mat-card class="profile">
+      <div class="profile-avatar">
+        <img class="img-profile" [src]="repository.owner.avatar_url">
+      </div>
+      <p>Login: {{repository.owner.login}}</p>
+      <p>Repository name: {{repository.full_name}}</p>
+      <p>Language: {{repository.language}}</p>
+      <p>Stars: {{repository.stargazers_count}}</p>
+      <p>Forks: {{repository.forks}}</p>
+      <p>Watchers: {{repository.watchers}}</p>
+    </mat-card>
+  </div>
+</ng-container>
+
+

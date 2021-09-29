@@ -1,7 +1,7 @@
-<div class="result">
-  <p>Login: {{repository.owner.login}}</p>
-  <p>Repository name: {{repository.full_name}}</p>
-  <p>Language: {{repository.language}}</p>
-  <p>Stars: {{repository.stargazers_count}}</p>
-  <p>Forks: {{repository.forks}}</p>
-</div>
+<ng-container *ngIf="repository !== null" >
+  <div class="result" >
+    <p>Repository name: {{repository.full_name}}</p>
+    <p>Stars: {{repository.stargazers_count}}</p>
+    <p>Forks: {{repository.forks}}</p>
+  </div>
+</ng-container>
