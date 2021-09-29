@@ -1,0 +1,24 @@
+<div class="header-main">
+  <mat-card class="main-card" [formGroup]="inputForm">
+    <mat-form-field class="main-card__input-field" appearance="fill"  >
+      <mat-label>Search for repositories</mat-label>
+      <input formControlName="search" matInput>
+    </mat-form-field>
+    <mat-form-field class="main-card__sort-options" appearance="fill">
+      <mat-label>Sort by</mat-label>
+      <mat-select formControlName="filter">
+        <mat-option>None</mat-option>
+        <mat-option value="stars">Stars</mat-option>
+        <mat-option value="forks">Forks</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-card>
+  <ng-container *ngIf="isLoading">
+    <mat-progress-bar class="progress-bar" mode="indeterminate"></mat-progress-bar>
+  </ng-container>
+  <div class="main-results" *ngFor="let repository of repositories$ | async">
+    <mat-card class="main-result-card">
+      <app-results [repository]="repository"></app-results>
+    </mat-card>
+  </div>
+</div>
