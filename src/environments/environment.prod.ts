@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  githubSearchRepoApiUrl: 'https://api.github.com/search/repositories'
 };
