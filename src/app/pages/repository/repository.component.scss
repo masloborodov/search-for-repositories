@@ -1,12 +1,20 @@
 .repository-main{
-  box-shadow: 2px 2px 15px 1px rgba(0, 0, 0, 0.2);
   margin: 20px;
   width: 400px;
-  .profile-avatar{
-    .img-profile{
-      width: 100px;
+  .btn-back{
+    box-shadow: none;
+    width: 100px;
+    margin-bottom: 20px;
+  }
+  .profile{
+    box-shadow: 2px 2px 15px 1px rgba(0, 0, 0, 0.2);
+    .profile-avatar{
+      .img-profile{
+        width: 100px;
+      }
     }
   }
+
 }
 
 

@@ -11,31 +11,30 @@ import { IRepository, IResponse } from '../../interfaces/response.interface';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  private readonly debounce: number = 1000;
+
   public repositories$: Observable<any[]> = of([]);
   public isLoading: boolean = false;
-  constructor(private gitSearch: GithubSearchService, private formBuilder: FormBuilder) {
-  }
-  inputForm: FormGroup = this.formBuilder.group({
+  public inputForm: FormGroup = this.formBuilder.group({
       search: ['', [Validators.required]],
       filter: ['']
     },
   );
 
+  private readonly debounce: number = 1000;
+
+  constructor(private gitSearch: GithubSearchService, private formBuilder: FormBuilder) {}
+
   ngOnInit(): void {
-    this.repositories$ = this.inputForm.valueChanges.pipe(
-      debounceTime(this.debounce),
-      tap(res => {
-        this.isLoading = true
-      }),
-      switchMap(({ search, filter }) => {
-        return this.gitSearch.getRepositories(search, filter).pipe(
-          map(data => data.items),
-          tap(res => {
-            this.isLoading = false
-          }))
-      })
-    );
+    this.repositories$ = this.inputForm.valueChanges
+      .pipe(
+        debounceTime(this.debounce),
+        tap(() => this.isLoading = true),
+        switchMap(({ search, filter }) => {
+          return this.gitSearch.getRepositories(search, filter).pipe(
+            map(data => data.items),
+            tap(() => this.isLoading = false))
+        })
+      );
   }
 
 }

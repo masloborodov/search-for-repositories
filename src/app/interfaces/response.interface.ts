@@ -10,13 +10,7 @@ export interface IRepository {
   forks: number,
   stargazers_count: number
 }
-export interface IAdvancedRepository {
-  id: number,
-  name: string,
-  git_url: string,
-  full_name: string,
-  forks: number,
-  stargazers_count: number
+export interface IAdvancedRepository extends IRepository{
   language: string,
   watchers: number,
   open_issues: number,

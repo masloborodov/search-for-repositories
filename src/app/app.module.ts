@@ -13,6 +13,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatIconModule } from '@angular/material/icon';
+
 import { ReactiveFormsModule } from '@angular/forms';
 import { RepositoryComponent } from './pages/repository/repository.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -36,7 +38,8 @@ import { AppRoutingModule } from './app-routing.module';
     MatButtonModule,
     MatCardModule,
     MatSelectModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

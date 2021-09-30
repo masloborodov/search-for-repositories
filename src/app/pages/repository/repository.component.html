@@ -1,5 +1,12 @@
 <ng-container *ngIf="repository !== null" >
+
   <div class="repository-main" >
+    <div>
+      <a class="btn-back" mat-raised-button routerLink='' routerLinkActive="active">
+        <mat-icon>arrow_back</mat-icon>
+        Back
+      </a>
+    </div>
     <mat-card class="profile">
       <div class="profile-avatar">
         <img class="img-profile" [src]="repository.owner.avatar_url">
