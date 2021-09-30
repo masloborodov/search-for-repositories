@@ -2,16 +2,13 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
 import { GithubSearchService } from './github-search.service';
-
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class RepositoryResolverService implements Resolve<any> {
-  private readonly URL = environment.githubSearchRepoApiUrl;
 
   constructor(private http: HttpClient, private gitSearch: GithubSearchService) {}
 

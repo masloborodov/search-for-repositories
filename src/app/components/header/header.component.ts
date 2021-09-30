@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { GithubSearchService } from '../../services/github-search.service';
-import { catchError, debounceTime, switchMap, tap } from 'rxjs/operators';
+import { catchError, debounceTime, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { of, Subject } from 'rxjs';
 import { IRepository } from '../../interfaces/response.interface';
+import { StoreSandboxService } from '../../services/store-sandbox.service';
 
 @Component({
   selector: 'app-header',
@@ -27,7 +28,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(private gitSearch: GithubSearchService,
               private formBuilder: FormBuilder,
-              private chRef: ChangeDetectorRef) {}
+              private chRef: ChangeDetectorRef,
+              private storeSandbox: StoreSandboxService) {}
 
   get repositoriesFiltered(): IRepository[]{
     if(this.filter === ''){
@@ -38,31 +40,37 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.storeSandbox.filters$.pipe(
+      takeUntil(this.unsubscribe$),
+      tap(() => {
+        this.isLoading = true
+        this.chRef.markForCheck();
+      }),
+      switchMap(({ q, sort }) => {
+        this.inputForm.setValue({search: q, filter: sort}, {emitEvent: false})
+        return this.gitSearch.getRepositories(q, sort).pipe(
+          catchError(() => of([])),
+          tap(() => {
+            this.isLoading = false
+            this.chRef.markForCheck();
+          })
+        )
+      })
+    ).subscribe(({items}) => {
+      this.repositories = items || [];
+    })
+
     this.inputForm.valueChanges
       .pipe(
+        takeUntil(this.unsubscribe$),
         debounceTime(this.debounce),
         tap(() => {
           this.isLoading = true
           this.chRef.markForCheck();
-
-        }),
-        switchMap(({ search, filter }) => {
-          if (this.inputForm.get('search')?.invalid){
-            this.isLoading = false
-            return of([])
-          }else{
-            return this.gitSearch.getRepositories(search, filter).pipe(
-              catchError(() => of([])),
-              tap(() => {
-                this.isLoading = false
-                this.chRef.markForCheck();
-              })
-            )
-          }
         })
-      ).subscribe(({items}) => {
-      this.repositories = items || [];
-    });
+      ).subscribe(({ search, filter }) => {
+      this.storeSandbox.setFilters({q: search, sort: filter})
+    })
   }
   ngOnDestroy(): void {
     this.unsubscribe$.next();

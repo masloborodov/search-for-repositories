@@ -18,6 +18,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RepositoryComponent } from './pages/repository/repository.component';
 import { AppRoutingModule } from './app-routing.module';
+import { StoreModule } from '@ngrx/store';
+import { reducer } from './store/reducers';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,9 @@ import { AppRoutingModule } from './app-routing.module';
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
+    StoreModule.forRoot({
+      repositories: reducer
+    }),
     MatInputModule,
     MatButtonModule,
     MatCardModule,
