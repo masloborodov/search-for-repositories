@@ -12,11 +12,24 @@
         <mat-option value="forks">Forks</mat-option>
       </mat-select>
     </mat-form-field>
+    <mat-form-field class="main-card__filter-options" appearance="fill"  >
+      <mat-label>Filter by language</mat-label>
+      <mat-select (selectionChange)="repositoriesFilter(filter.value)" #filter>
+        <mat-option>None</mat-option>
+        <mat-option value="TypeScript">TypeScript</mat-option>
+        <mat-option value="JavaScript">JavaScript</mat-option>
+        <mat-option value="C#">C#</mat-option>
+        <mat-option value="C++">C++</mat-option>
+        <mat-option value="C">C</mat-option>
+        <mat-option value="Java">Java</mat-option>
+        <mat-option value="PHP">PHP</mat-option>
+      </mat-select>
+    </mat-form-field>
   </mat-card>
   <ng-container *ngIf="isLoading">
     <mat-progress-bar class="progress-bar" mode="indeterminate"></mat-progress-bar>
   </ng-container>
-  <div class="main-results" *ngFor="let repository of repositories$ | async" >
+  <div class="main-results" *ngFor="let repository of repositoriesFiltered, let i = index">
     <a mat-flat-button class="main-result" routerLink='repository' [queryParams]="{ name: repository.name }" routerLinkActive="active">
       <mat-card class="main-result-card">
         <app-results [repository]="repository"></app-results>

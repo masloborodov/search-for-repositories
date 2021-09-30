@@ -11,8 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 export class RepositoryComponent{
   public repository: IAdvancedRepository | null = null
   constructor(private route: ActivatedRoute) {
-    route.data.subscribe(res => {
-      const { items } = res
+    route.data.subscribe(({ items }) => {
       this.repository = items[0]
     })
   }
