@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { IAdvancedRepository } from '../interfaces/response.interface';
 import { environment } from '../../environments/environment';
 import { GithubSearchService } from './github-search.service';
 

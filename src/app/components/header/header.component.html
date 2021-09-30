@@ -14,7 +14,7 @@
     </mat-form-field>
     <mat-form-field class="main-card__filter-options" appearance="fill"  >
       <mat-label>Filter by language</mat-label>
-      <mat-select (selectionChange)="repositoriesFilter(filter.value)" #filter>
+      <mat-select [(value)]="filter">
         <mat-option>None</mat-option>
         <mat-option value="TypeScript">TypeScript</mat-option>
         <mat-option value="JavaScript">JavaScript</mat-option>
